@@ -1,0 +1,197 @@
+.signup-page {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+ background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Header */
+.signup-header {
+  padding-top: 2rem;
+  padding-bottom: 0.75rem;
+  text-align: center;
+}
+
+.signup-header-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #f9fafb;
+}
+
+.signup-header-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+/* Center card */
+.signup-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 28rem;
+  border-radius: 1rem;
+  padding: 2rem 1.75rem;
+  background: rgba(240, 241, 243, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  backdrop-filter: blur(18px);
+  box-shadow: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
+}
+
+/* Logo circle */
+.signup-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.signup-logo {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #188888, #a5b4fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #dadbe1;
+  box-shadow: 0 18px 40px rgba(24, 138, 158, 0.6);
+}
+
+/* Card title */
+.signup-card-title {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #329c7e;
+}
+
+.signup-card-subtitle {
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.75rem;
+  color: #057d69;
+}
+
+/* Form */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Two columns for name */
+.signup-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+/* Labels */
+.signup-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1d1e1d;
+}
+
+/* Inputs */
+.signup-input {
+  margin-top: 0.25rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid #1f2937;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.375rem 0.65rem;
+  font-size: 0.875rem;
+  color: #04182c;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.signup-input::placeholder {
+  color: #172747;
+}
+
+.signup-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7), 0 0 0 6px rgba(37, 99, 235, 0.25);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Error text */
+.signup-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #f87171;
+}
+
+/* Button */
+.signup-submit {
+  margin-top: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f9fafb;
+  background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.6);
+}
+
+.signup-submit:hover {
+  background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.75);
+}
+
+.signup-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.55);
+}
+
+/* Footer text */
+.signup-footer {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.signup-footer-link {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.signup-footer-link:hover {
+  color: #93c5fd;
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .signup-card {
+    padding-inline: 1.25rem;
+    padding-block: 1.5rem;
+  }
+
+  .signup-row-2 {
+    grid-template-columns: 1fr;
+  }
+}

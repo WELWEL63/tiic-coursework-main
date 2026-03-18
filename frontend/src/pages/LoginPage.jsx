@@ -41,7 +41,16 @@ function LoginPage() {
           </svg>
           <h1 style={{ margin: 0,color: '#024a5f', fontSize: '1.5rem' }}>Inspectra </h1>
         </div>
-  
+
+<p className="mt-3 text-xs text-slate-400 text-center">
+  Don’t have an account?{" "}
+  <a
+    href="/signup"
+    className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+  >
+    Sign up
+  </a>
+</p>
 
             
           

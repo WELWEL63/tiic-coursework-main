@@ -1,24 +1,22 @@
-import React from "react";
+// src/App.jsx
 import { Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./components/Layout.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+import Layout from "./components/Layout.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ArMaintenancePage from "./pages/ArMaintenancePage.jsx";
 import ToolCheckPage from "./pages/ToolCheckPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import UserManagementPage from "./pages/UserManagementPage.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
-// App routing:
-// - /login is public (will later call backend auth FR14).
-// - All other routes are wrapped in ProtectedRoute (requires user)
-//   and rendered inside Layout (header + nav + Outlet). [file:6]
 function App() {
   return (
     <Routes>
-      {/* Public route */}
+      {/* Public routes */}
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
 
-      {/* Protected layout with nested routes */}
+      {/* Protected layout */}
       <Route
         path="/"
         element={
@@ -30,20 +28,20 @@ function App() {
         {/* Default route inside layout redirects to /ar */}
         <Route index element={<Navigate to="/ar" replace />} />
 
-        {/* AR maintenance page (fault scanning, etc.) */}
-        <Route path="ar" element={<ArMaintenancePage />} />
-
-        {/* Tool check page (tool scanning + checklist) */}
-        <Route path="tools" element={<ToolCheckPage />} />
-
-        {/* Dashboard page (faults, tools, alerts overview) */}
+        {/* Dashboard page */}
         <Route path="dashboard" element={<DashboardPage />} />
 
-        {/* User management page (create users with role/email/password) */}
+        {/* AR maintenance page */}
+        <Route path="ar" element={<ArMaintenancePage />} />
+
+        {/* Tool check page */}
+        <Route path="tools" element={<ToolCheckPage />} />
+
+        {/* User management page */}
         <Route path="users" element={<UserManagementPage />} />
       </Route>
 
-      {/* Fallback: anything else goes to login */}
+      {/* Fallback: anything else goes to /login */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
