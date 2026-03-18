@@ -1,117 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+// src/components/ArScanner.jsx
+import React, { useRef } from "react";
+import CameraFeed from "./CameraFeed.jsx";
+import MarkerOverlay from "./MarkerOverlay.jsx";
+import MarkerStatus from "./MarkerStatus.jsx";
 
+/**
+ * ArScanner
+ * - Uses CameraFeed to show camera and canvas
+ * - Uses MarkerOverlay to detect markers and draw red outlines
+ * - Shows MarkerStatus based on selectedMarkerId
+ */
 function ArScanner({ selectedMarkerId, onMarkerChange }) {
   const videoRef = useRef(null);
-  const [error, setError] = useState("");
-  const [devices, setDevices] = useState([]);
-  const [currentDeviceIndex, setCurrentDeviceIndex] = useState(0);
+  const canvasRef = useRef(null);
 
-  // Get camera devices
-  useEffect(() => {
-    async function loadDevices() {
-      try {
-        const all = await navigator.mediaDevices.enumerateDevices();
-        const cams = all.filter((d) => d.kind === "videoinput");
-        setDevices(cams);
-      } catch (err) {
-        console.error(err);
-        setError("Unable to list cameras.");
-      }
-    }
-
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then((stream) => {
-        stream.getTracks().forEach((t) => t.stop());
-        loadDevices();
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Allow camera access to use AR view.");
-      });
-  }, []);
-
-  // Start selected camera
-  useEffect(() => {
-    let currentStream;
-
-    async function startFromDevice() {
-      if (!devices.length) return;
-      const device = devices[currentDeviceIndex];
-
-      try {
-        setError("");
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { deviceId: { exact: device.deviceId } },
-          audio: false,
-        });
-        currentStream = stream;
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
-        }
-      } catch (err) {
-        console.error(err);
-        setError("Unable to start selected camera.");
-      }
-    }
-
-    startFromDevice();
-
-    return () => {
-      if (currentStream) currentStream.getTracks().forEach((t) => t.stop());
-    };
-  }, [devices, currentDeviceIndex]);
-
-  const handleSwitchCamera = () => {
-    if (!devices.length) return;
-    setCurrentDeviceIndex((prev) => (prev + 1) % devices.length);
+  const handleCameraReady = ({ videoRef: vRef, canvasRef: cRef }) => {
+    videoRef.current = vRef.current;
+    canvasRef.current = cRef.current;
   };
 
   return (
     <div className="ar-scanner">
-      {/* Camera feed with overlay canvas */}
+      {/* Camera + canvas */}
       <CameraFeed onReady={handleCameraReady} />
 
-      {/* Demo controls for overlay */}
-      <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
-        <button onClick={drawHighlightBox}>Highlight area (demo)</button>
-        <button onClick={clearOverlay}>Clear overlay</button>
-      </div>
-
-      {error && <p className="error-text">{error}</p>}
-
-      <video
-        ref={videoRef}
-        playsInline
-        autoPlay
-        muted
-        style={{
-          width: "100%",
-          maxWidth: "480px",
-          borderRadius: "8px",
-          border: "2px solid #0b3d91",
-          background: "#000",
-        }}
+      {/* AR detection overlay */}
+      <MarkerOverlay
+        videoRef={videoRef}
+        canvasRef={canvasRef}
+        onMarkerChange={onMarkerChange}
       />
 
-      <div className="marker-panel">
-        <label>
-          Simulated ArUco Marker ID
-          <input
-            type="number"
-            value={selectedMarkerId ?? ""}
-            onChange={(e) => onMarkerChange(e.target.value || null)}
-            placeholder="e.g. 101"
-          />
-        </label>
-        <p className="marker-help">
-          In a real system, this marker ID would be detected from the AR marker
-          (ArUco) in the camera view and used as the anchor for faults on this
-          surface.[file:17]
-        </p>
-      </div>
+      {/* Status text */}
+      <MarkerStatus markerId={selectedMarkerId} />
     </div>
   );
 }

@@ -8,12 +8,17 @@ function CameraFeed({ onReady }) {
   const [devices, setDevices] = useState([]);
   const [currentDeviceIndex, setCurrentDeviceIndex] = useState(0);
 
-  // Expose refs to parent (ArScanner) if needed
+  // Expose refs and camera switch helper to parent
   useEffect(() => {
     if (onReady) {
-      onReady({ videoRef, canvasRef });
+      onReady({
+        videoRef,
+        canvasRef,
+        getCurrentDeviceIndex: () => currentDeviceIndex,
+        setCurrentDeviceIndex,
+      });
     }
-  }, [onReady]);
+  }, [onReady, currentDeviceIndex]);
 
   // Get camera devices once
   useEffect(() => {
@@ -40,7 +45,7 @@ function CameraFeed({ onReady }) {
       });
   }, []);
 
-  // Start selected camera
+  // Start selected camera whenever device index changes
   useEffect(() => {
     let currentStream;
 
@@ -58,7 +63,8 @@ function CameraFeed({ onReady }) {
 
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          await videoRef.current.play();
+          // Avoid noisy AbortError in StrictMode
+          videoRef.current.play().catch(() => {});
         }
       } catch (err) {
         console.error(err);
@@ -69,7 +75,9 @@ function CameraFeed({ onReady }) {
     startFromDevice();
 
     return () => {
-      if (currentStream) currentStream.getTracks().forEach((t) => t.stop());
+      if (currentStream) {
+        currentStream.getTracks().forEach((t) => t.stop());
+      }
     };
   }, [devices, currentDeviceIndex]);
 
@@ -81,10 +89,10 @@ function CameraFeed({ onReady }) {
   return (
     <div>
       <div
-        className="flex items-center justify-between mb-2"
-        style={{ gap: "0.5rem" }}
+        className="ar-scanner-header"
+        style={{ marginBottom: "0.5rem", display: "flex", gap: "0.5rem" }}
       >
-        <h3>Camera</h3>
+        <h3>Camera & Marker</h3>
         {devices.length > 1 && (
           <button onClick={handleSwitchCamera}>
             Switch camera ({currentDeviceIndex + 1}/{devices.length})
@@ -97,32 +105,27 @@ function CameraFeed({ onReady }) {
       <div
         style={{
           position: "relative",
-          display: "inline-block",
           width: "100%",
           maxWidth: "480px",
+          margin: "0 auto",
         }}
       >
+        {/* Hidden video: input for AR detection */}
         <video
           ref={videoRef}
           playsInline
-          autoPlay
           muted
-          style={{
-            width: "100%",
-            borderRadius: "8px",
-            border: "2px solid #0b3d91",
-            background: "#000",
-          }}
+          style={{ display: "none" }}
         />
+
+        {/* Visible canvas: video frame + overlays */}
         <canvas
           ref={canvasRef}
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
             width: "100%",
-            height: "100%",
-            pointerEvents: "none",
+            borderRadius: "8px",
+            border: "2px solid #024a5f",
+            background: "#000",
           }}
         />
       </div>
