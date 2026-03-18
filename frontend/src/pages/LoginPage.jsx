@@ -39,8 +39,7 @@ function LoginPage() {
             <div className="login-logo-circle">AR</div>
           </div>
 
-          <h2>Sign in</h2>
-          <p className="login-subtitle">
+                <p className="login-subtitle">
             Sign in to access AR maintenance, tool checks and dashboards.
           </p>
 
