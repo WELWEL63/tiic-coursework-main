@@ -35,10 +35,16 @@ function LoginPage() {
       <main className="login-center">
         <div className="login-card">
           <div className="login-logo">
-            {/* Replace with <img src="/logo.png" alt="Logo" /> when you have a real logo */}
-            <div className="login-logo-circle">AR</div>
-          </div>
+              
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <h1 style={{ margin: 0,color: '#024a5f', fontSize: '1.5rem' }}>Inspectra </h1>
+        </div>
+  
 
+            
+          
                 <p className="login-subtitle">
             Sign in to access AR maintenance, tool checks and dashboards.
           </p>
