@@ -1,51 +1,72 @@
-// src/components/ArScanner.jsx
-import React, { useRef } from "react";
-import CameraFeed from "./CameraFeed.jsx";
-import MarkerInput from "./MarkerInput.jsx";
+import React, { useEffect, useRef, useState } from "react";
 
 function ArScanner({ selectedMarkerId, onMarkerChange }) {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
+  const [error, setError] = useState("");
+  const [devices, setDevices] = useState([]);
+  const [currentDeviceIndex, setCurrentDeviceIndex] = useState(0);
 
-  // Receive refs from CameraFeed
-  const handleCameraReady = ({ videoRef: vRef, canvasRef: cRef }) => {
-    videoRef.current = vRef.current;
-    canvasRef.current = cRef.current;
-  };
-
-  const drawHighlightBox = () => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    if (!video || !canvas) return;
-
-    // Ensure video dimensions are available
-    if (!video.videoWidth || !video.videoHeight) {
-      setTimeout(drawHighlightBox, 200);
-      return;
+  // Get camera devices
+  useEffect(() => {
+    async function loadDevices() {
+      try {
+        const all = await navigator.mediaDevices.enumerateDevices();
+        const cams = all.filter((d) => d.kind === "videoinput");
+        setDevices(cams);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to list cameras.");
+      }
     }
 
-    const ctx = canvas.getContext("2d");
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then((stream) => {
+        stream.getTracks().forEach((t) => t.stop());
+        loadDevices();
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Allow camera access to use AR view.");
+      });
+  }, []);
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+  // Start selected camera
+  useEffect(() => {
+    let currentStream;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    async function startFromDevice() {
+      if (!devices.length) return;
+      const device = devices[currentDeviceIndex];
 
-    const boxWidth = canvas.width / 3;
-    const boxHeight = canvas.height / 3;
-    const x = (canvas.width - boxWidth) / 2;
-    const y = (canvas.height - boxHeight) / 2;
+      try {
+        setError("");
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { deviceId: { exact: device.deviceId } },
+          audio: false,
+        });
+        currentStream = stream;
 
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 4;
-    ctx.strokeRect(x, y, boxWidth, boxHeight);
-  };
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play();
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Unable to start selected camera.");
+      }
+    }
 
-  const clearOverlay = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    startFromDevice();
+
+    return () => {
+      if (currentStream) currentStream.getTracks().forEach((t) => t.stop());
+    };
+  }, [devices, currentDeviceIndex]);
+
+  const handleSwitchCamera = () => {
+    if (!devices.length) return;
+    setCurrentDeviceIndex((prev) => (prev + 1) % devices.length);
   };
 
   return (
@@ -59,8 +80,38 @@ function ArScanner({ selectedMarkerId, onMarkerChange }) {
         <button onClick={clearOverlay}>Clear overlay</button>
       </div>
 
-      {/* Marker input for simulated ArUco ID */}
-      <MarkerInput markerId={selectedMarkerId} onChange={onMarkerChange} />
+      {error && <p className="error-text">{error}</p>}
+
+      <video
+        ref={videoRef}
+        playsInline
+        autoPlay
+        muted
+        style={{
+          width: "100%",
+          maxWidth: "480px",
+          borderRadius: "8px",
+          border: "2px solid #0b3d91",
+          background: "#000",
+        }}
+      />
+
+      <div className="marker-panel">
+        <label>
+          Simulated ArUco Marker ID
+          <input
+            type="number"
+            value={selectedMarkerId ?? ""}
+            onChange={(e) => onMarkerChange(e.target.value || null)}
+            placeholder="e.g. 101"
+          />
+        </label>
+        <p className="marker-help">
+          In a real system, this marker ID would be detected from the AR marker
+          (ArUco) in the camera view and used as the anchor for faults on this
+          surface.[file:17]
+        </p>
+      </div>
     </div>
   );
 }
