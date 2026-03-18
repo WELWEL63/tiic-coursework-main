@@ -14,7 +14,14 @@ function Layout() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <h1>AR Maintenance Support</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* SVG Box/Layers Icon to represent AR/Infrastructure */}
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <h1 style={{ margin: 0, fontSize: '1.5rem' }}>Inspectra</h1>
+        </div>
+        
         <div className="app-header-right">
           {user && (
             <>

@@ -205,3 +205,54 @@ body {
 }
 
 /* ...other non-login styles... */
+
+/* --- Modern Form Inputs --- */
+.login-form input,
+.fault-form input,
+.fault-form textarea,
+.fault-form select,
+.user-form input,
+.user-form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #cbd5e1; /* Light gray border */
+  border-radius: 6px; /* Rounded corners */
+  background-color: #ffffff; /* White background */
+  color: #0f172a; /* Dark text */
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* Add a teal glow when the user clicks/focuses on a box */
+.login-form input:focus,
+.fault-form input:focus,
+.fault-form textarea:focus,
+.fault-form select:focus,
+.user-form input:focus,
+.user-form select:focus {
+  outline: none;
+  border-color: #024a5f;
+  box-shadow: 0 0 0 3px rgba(2, 74, 95, 0.15);
+}
+
+/* --- Better Buttons --- */
+button {
+  background-color: #024a5f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #036986;
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
