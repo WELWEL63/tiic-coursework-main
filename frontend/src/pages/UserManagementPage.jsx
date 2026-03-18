@@ -4,7 +4,7 @@ import UserForm from "../components/UserForm.jsx";
 import UserList from "../components/UserList.jsx";
 import AccessControlInfo from "../components/AccessControlInfo.jsx";
 
-// This page supports FR14–FR15: user accounts and role-based access control (frontend side). [file:6]
+// This page supports FR14–FR15: user accounts and role-based access control (frontend side). 
 function UserManagementPage() {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
