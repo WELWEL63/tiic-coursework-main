@@ -8,6 +8,9 @@ import ArMaintenancePage from "./pages/ArMaintenancePage.jsx";
 import ToolCheckPage from "./pages/ToolCheckPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import UserManagementPage from "./pages/UserManagementPage.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
+import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+
 
 function App() {
   return (
@@ -15,6 +18,8 @@ function App() {
       {/* Public routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       {/* Protected layout */}
       <Route

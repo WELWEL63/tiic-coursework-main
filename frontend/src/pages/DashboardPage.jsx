@@ -13,7 +13,7 @@ function DashboardPage() {
         <div className="dashboard-card">Alerts & unusual activity (placeholder)</div>
       </div>
     </div>
-  );
+    );
 }
 
 export default DashboardPage;

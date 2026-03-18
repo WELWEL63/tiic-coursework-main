@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import BrandLogo from "../components/BrandLogo.jsx";
+import "../styles/SignupPage.css";
 
-// Supports secure login user story (US14) and FR14/FR15 when wired to backend. [file:6]
 function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -27,65 +28,85 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-wrapper">
-      <header className="login-header">
-        <h1>AR Maintenance Support System</h1>
+    <div className="signup-page">
+      <header className="signup-header">
+        <h1 className="signup-header-title">
+          AR Maintenance Support System
+        </h1>
+        <p className="signup-header-subtitle">
+          Secure access for authorised maintenance staff.
+        </p>
       </header>
 
-      <main className="login-center">
-        <div className="login-card">
-          <div className="login-logo">
-              
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-          <h1 style={{ margin: 0,color: '#024a5f', fontSize: '1.5rem' }}>Inspectra </h1>
-        </div>
+      <main className="signup-main">
+        <div className="signup-card" aria-labelledby="login-title">
+          <BrandLogo />
 
-<p className="mt-3 text-xs text-slate-400 text-center">
-  Don’t have an account?{" "}
-  <a
-    href="/signup"
-    className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
-  >
-    Sign up
-  </a>
-</p>
-
-            
-          
-                <p className="login-subtitle">
+          <h2 id="login-title" className="signup-card-title">
+            Log in
+          </h2>
+          <p className="signup-card-subtitle">
             Sign in to access AR maintenance, tool checks and dashboards.
           </p>
 
-          <form className="login-form" onSubmit={handleSubmit}>
-            <label>
-              Username
+          <form
+            className="signup-form"
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <div>
+              <label className="signup-label" htmlFor="username">
+                Username
+              </label>
               <input
+                id="username"
                 name="username"
                 value={form.username}
                 onChange={handleChange}
                 required
+                className="signup-input"
+                autoComplete="username"
               />
-            </label>
+            </div>
 
-            <label>
-              Password
+            <div>
+              <label className="signup-label" htmlFor="password">
+                Password
+              </label>
               <input
+                id="password"
                 name="password"
                 type="password"
                 value={form.password}
                 onChange={handleChange}
                 required
+                className="signup-input"
+                autoComplete="current-password"
               />
-            </label>
+            </div>
 
-            {error && <p className="error-text">{error}</p>}
+            {error && <p className="signup-error">{error}</p>}
 
-            <button type="submit" className="login-button">
+            <button type="submit" className="signup-submit">
               Login
             </button>
           </form>
+
+          <p className="signup-footer">
+            Don’t have an account?{" "}
+            <Link to="/signup" className="signup-footer-link">
+              Sign up? 
+            </Link>  {""}
+        
+         
+  Forgot your password?{" "}
+  <Link to="/forgot-password" className="signup-footer-link">
+    Reset it
+  </Link>
+</p>
+          <p className="signup-footer">
+            Powered by Group (need an ngroup namehere)
+          </p>
         </div>
       </main>
     </div>

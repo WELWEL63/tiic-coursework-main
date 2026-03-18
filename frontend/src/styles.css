@@ -14,12 +14,12 @@ body {
 .app-header,
 .app-nav {
   padding: 0.75rem 1rem;
-  background: #024a5f;
+   background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #024b4b 100%);
   color: white;
 }
 
 .app-header {
-  display: flex;
+  display: flex; background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
   justify-content: space-between;
   align-items: center;
 }
