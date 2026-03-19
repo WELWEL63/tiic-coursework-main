@@ -7,7 +7,7 @@
 }
 
 .login-header {
-  padding: 1.5rem 1rem 0.5rem;
+  padding: 2.5rem 1.5rem 1.5rem;
   text-align: center;
 }
 
@@ -26,9 +26,9 @@
 }
 
 .login-card {
-  width: 100%;
-  max-width: 380px;
-  background: #f9fafb;
+  width: 110%;
+  max-width: 480px;
+  background: #143d67;
   color: #111827;
   border-radius: 16px;
   padding: 2rem 1.75rem;
