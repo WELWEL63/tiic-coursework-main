@@ -40,7 +40,9 @@ function LoginPage() {
 
       <main className="signup-main">
         <div className="signup-card" aria-labelledby="login-title">
-          <BrandLogo />
+       
+          <BrandLogo variant="image" />
+
 
           <h2 id="login-title" className="signup-card-title">
             Log in

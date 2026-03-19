@@ -1,6 +1,31 @@
+// src/components/BrandLogo.jsx
 import React from "react";
+import heroImg from "../assets/hero.png"; // adjust path if needed
 
-function BrandLogo() {
+function BrandLogo({ variant = "svg" }) {
+  if (variant === "image") {
+    return (
+      <div className="login-logo">
+        <img
+          src={heroImg}
+          alt="Inspectra logo"
+          style={{ height: "100px", width: "auto" }}
+        />
+        <h1
+          style={{
+            margin: 0,
+            color: "#024a5f",
+            fontSize: "1.5rem",
+            fontWeight: 700,
+          }}
+        >
+        
+        </h1>
+      </div>
+    );
+  }
+
+  // default: your existing SVG logo
   return (
     <div className="login-logo">
       <svg

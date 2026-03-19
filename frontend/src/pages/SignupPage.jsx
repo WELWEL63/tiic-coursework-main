@@ -52,6 +52,8 @@ function SignupPage() {
       <main className="signup-main">
         <div className="signup-card" aria-labelledby="signup-title">
           <BrandLogo />
+          <BrandLogo variant="image" />
+
 
           <h2 id="signup-title" className="signup-card-title">
             Sign up
