@@ -9,7 +9,7 @@ function BrandLogo({ variant = "svg" }) {
         <img
           src={heroImg}
           alt="Inspectra logo"
-          style={{ height: "100px", width: "auto" }}
+          style={{ height: "80px", width: "auto" }}
         />
         <h1
           style={{

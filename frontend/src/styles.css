@@ -1,84 +1,421 @@
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: #f3f4f6;
+/* ---------- Global ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top, #e0f2f1 0, #f9fafb 40%, #f3f4f6 100%);
+  color: #0f172a;
+}
+
+/* Main app shell */
 .app-shell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.app-header,
-.app-nav {
-  padding: 0.75rem 1rem;
-   background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #024b4b 100%);
-  color: white;
-}
+/* ---------- Header & Nav (bright) ---------- */
 
 .app-header {
-  display: flex; background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #1b3d3d 100%);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.9rem 1.8rem;
+  background: #ffffffcc;
+  backdrop-filter: blur(14px);
+  color: #024a5f;
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.05),
+    0 0 0 1px rgba(148, 163, 184, 0.3);
 }
 
-.app-header-right button {
-  margin-left: 0.75rem;
+.app-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Nav bar */
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 4.2rem;
+  padding: 0.65rem 1.2rem 0.75rem;
+  background: linear-gradient(135deg, #016a78 0%, #1ea3af 40%, #024b4b 100%);
+  color: #e5e7eb;
+
 }
 
 .app-nav a {
-  margin-right: 1rem;
-  color: white;
+  position: relative;
+  color: #e5e7eb;
   text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.1rem;
+  opacity: 0.9;
+  transition: color 0.18s ease, opacity 0.18s ease, transform 0.12s ease;
+}
+
+.app-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.18rem;
+  width: 0%;
+  height: 2px;
+  background: #facc15;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.2s ease;
+}
+
+.app-nav a:hover {
+  opacity: 1;
+  color: #fefce8;
+  transform: translateY(-1px);
+}
+
+.app-nav a:hover::after {
+  width: 100%;
 }
 
 .app-nav a.active {
-  text-decoration: underline;
+  opacity: 1;
+  color: #fefce8;
 }
 
+.app-nav a.active::after {
+  width: 100%;
+}
+
+/* ---------- Centered main content ---------- */
+
 .app-main {
-  padding: 1rem;
   flex: 1;
+  display: flex;
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(190, 242, 237, 0.6), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(191, 219, 254, 0.5), transparent 55%);
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* For “content pages” like dashboard, tools, users, keep inner content centered but wide */
+.page-inner {
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .page h2 {
   margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #0f172a;
 }
+
+/* ---------- Auth / card layout centering ---------- */
+
+.signup-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  padding: 1.7rem 1.6rem 1.5rem;
+  background: #ffffffef;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow:
+    0 18px 38px rgba(15, 23, 42, 0.14),
+    0 0 0 1px rgba(148, 163, 184, 0.15);
+}
+
+/* Auth headings */
+.signup-header {
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
+  text-align: center;
+}
+
+.signup-header-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #024a5f;
+  margin: 0;
+}
+
+.signup-header-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+  color: #4b5563;
+}
+
+.signup-card-title {
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0.3rem 0 0.1rem;
+  color: #0f172a;
+}
+
+.signup-card-subtitle {
+  text-align: center;
+  margin: 0.2rem 0 1rem;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* ---------- Brand logo ---------- */
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-bottom: 0.6rem;
+}
+
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---------- Forms ---------- */
 
 .login-form,
-.fault-form {
-  max-width: 400px;
+.fault-form,
+.user-form,
+.signup-form {
+  max-width: 420px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
+/* label text */
+.login-form label,
+.fault-form label,
+.user-form label,
+.signup-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* Fields */
 .login-form input,
 .fault-form input,
 .fault-form textarea,
-.fault-form select {
+.fault-form select,
+.user-form input,
+.user-form select,
+.signup-input {
   width: 100%;
-  padding: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.08s ease;
 }
 
-.error-text {
-  color: #b91c1c;
+.fault-form textarea {
+  min-height: 5.5rem;
+  resize: vertical;
 }
+
+/* Focus state */
+.login-form input:focus,
+.fault-form input:focus,
+.fault-form textarea:focus,
+.fault-form select:focus,
+.user-form input:focus,
+.user-form select:focus,
+.signup-input:focus {
+  outline: none;
+  border-color: #024a5f;
+  box-shadow:
+    0 0 0 1px rgba(2, 74, 95, 0.7),
+    0 0 0 6px rgba(2, 74, 95, 0.15);
+  background-color: #ffffff;
+  transform: translateY(-0.5px);
+}
+
+/* ---------- Buttons ---------- */
+
+button {
+  background: linear-gradient(135deg, #024a5f, #036986);
+  color: #f9fafb;
+  border: none;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #036986, #0f766e);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+}
+
+button:disabled {
+  background: #9ca3af;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Secondary / subtle action */
+.secondary-btn {
+  background: #e5e7eb;
+  color: #111827;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: none;
+}
+
+.secondary-btn:hover {
+  background: #e2e8f0;
+}
+
+/* Danger / destructive */
+.danger-btn {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  color: #f9fafb;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+}
+
+/* ---------- Links (centered under forms) ---------- */
+
+.signup-footer,
+.login-footer {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: #4b5563;
+  text-align: center;
+}
+
+.signup-footer a,
+.login-footer a,
+.signup-footer-link {
+  color: #036986;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+  transition: color 0.18s ease;
+}
+
+.signup-footer a:hover,
+.login-footer a:hover,
+.signup-footer-link:hover {
+  color: #0f766e;
+}
+
+/* ---------- Feedback text ---------- */
+
+.error-text,
+.signup-error {
+  color: #b91c1c;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+.success-text {
+  color: #047857;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+/* ---------- Dashboard ---------- */
 
 .dashboard-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   margin-top: 1rem;
 }
 
 .dashboard-card {
-  border: 1px solid #e5e7eb;
+  border-radius: 16px;
   padding: 1rem;
-  background: white;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(148, 163, 184, 0.18);
 }
+
+.dashboard-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ---------- AR / tools ---------- */
 
 .ar-scanner,
 .tool-scanner {
@@ -88,88 +425,15 @@ body {
 .tool-checklist {
   list-style: none;
   padding: 0;
+  margin: 0.3rem 0 0;
 }
 
 .tool-checklist li {
-  list-style: none;
+  font-size: 0.86rem;
+  padding: 0.1rem 0;
 }
 
-.app-header button {
-  cursor: pointer;
-}
-.user-form {
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.user-form input,
-.user-form select {
-  width: 100%;
-  padding: 0.4rem;
-}
-
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  background: white;
-}
-
-.user-table th,
-.user-table td {
-  border: 1px solid #e5e7eb;
-  padding: 0.4rem 0.5rem;
-  text-align: left;
-}
-.user-form {
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.user-form input,
-.user-form select {
-  width: 100%;
-  padding: 0.4rem;
-}
-
-.user-form-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  background: white;
-}
-
-.user-table th,
-.user-table td {
-  border: 1px solid #e5e7eb;
-  padding: 0.4rem 0.5rem;
-  text-align: left;
-}
-
-.secondary-btn {
-  background: #e5e7eb;
-  border: none;
-  padding: 0.35rem 0.7rem;
-  cursor: pointer;
-}
-
-.danger-btn {
-  background: #b91c1c;
-  color: white;
-  border: none;
-  padding: 0.35rem 0.7rem;
-  cursor: pointer;
-}
+/* ---------- User management ---------- */
 
 .user-mgmt-layout {
   display: grid;
@@ -178,81 +442,85 @@ body {
   margin-top: 1rem;
 }
 
+.user-form {
+  max-width: 420px;
+}
+
+.user-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* Table */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(148, 163, 184, 0.28);
+}
+
+.user-table th,
+.user-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.user-table th {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 60%);
+  color: #024a5f;
+  font-weight: 600;
+}
+
+.user-table tr:last-child td {
+  border-bottom: none;
+}
+
 .access-info ul {
   padding-left: 1.1rem;
+  margin: 0.4rem 0 0;
 }
 
 .access-info li {
   margin-bottom: 0.35rem;
+  font-size: 0.84rem;
 }
 
+/* ---------- Responsive ---------- */
 
-.success-text {
-  color: #047857;
-}
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: #f3f4f6;
-}
+@media (max-width: 768px) {
+  .app-main {
+    padding: 1.2rem;
+  }
 
-/* layout, nav, dashboard, etc. */
-.app-shell {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+  .user-mgmt-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-/* ...other non-login styles... */
-
-/* --- Modern Form Inputs --- */
-.login-form input,
-.fault-form input,
-.fault-form textarea,
-.fault-form select,
-.user-form input,
-.user-form select {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #cbd5e1; /* Light gray border */
-  border-radius: 6px; /* Rounded corners */
-  background-color: #ffffff; /* White background */
-  color: #0f172a; /* Dark text */
-  font-family: inherit;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
+  .app-header,
+  .app-nav {
+    padding-inline: 1.1rem;
+  }
 }
 
-/* Add a teal glow when the user clicks/focuses on a box */
-.login-form input:focus,
-.fault-form input:focus,
-.fault-form textarea:focus,
-.fault-form select:focus,
-.user-form input:focus,
-.user-form select:focus {
-  outline: none;
-  border-color: #024a5f;
-  box-shadow: 0 0 0 3px rgba(2, 74, 95, 0.15);
-}
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 0.95rem;
+  }
 
-/* --- Better Buttons --- */
-button {
-  background-color: #024a5f;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-button:hover {
-  background-color: #036986;
-}
-
-button:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
+  .signup-card {
+    padding-inline: 1.25rem;
+  }
 }
