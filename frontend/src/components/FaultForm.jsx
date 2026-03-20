@@ -10,6 +10,7 @@ function FaultForm({ markerId, onCreated }) {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false); // NEW: Tracks the success banner
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,7 +34,15 @@ function FaultForm({ markerId, onCreated }) {
       console.log("Create fault (mock)", payload);
       onCreated && onCreated({ id: Date.now().toString(), ...payload, status: "open" });
 
+      // Clear the form fields
       setForm({ title: "", description: "", severity: "medium" });
+
+      // NEW: Show the success banner, then hide it after 3 seconds
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+
     } catch (err) {
       console.error(err);
       setError("Failed to create fault.");
@@ -85,7 +94,15 @@ function FaultForm({ markerId, onCreated }) {
 
       {error && <p className="error-text">{error}</p>}
 
-      <button type="submit" disabled={saving}>
+      {/* NEW: The animated success banner */}
+      {showSuccess && (
+        <div className="success-banner">
+          ✅ Fault successfully logged for Marker #{markerId}!
+        </div>
+      )}
+
+      {/* NEW: Disables the button if it's saving OR if no marker is detected */}
+      <button type="submit" disabled={saving || !markerId}>
         {saving ? "Saving..." : "Save Fault"}
       </button>
     </form>

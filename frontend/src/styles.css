@@ -386,6 +386,33 @@ button:disabled {
   margin-top: 0.25rem;
 }
 
+/* NEW: Success Banner for the Fault Form */
+.success-banner {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #34d399;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Smooth fade-in animation for the banner */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-5px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
 /* ---------- Dashboard ---------- */
 
 .dashboard-grid {
@@ -440,123 +467,4 @@ button:disabled {
 .user-mgmt-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
-
-.user-form {
-  max-width: 420px;
-}
-
-.user-form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.6rem;
-}
-
-/* Table */
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow:
-    0 10px 24px rgba(15, 23, 42, 0.08),
-    0 0 0 1px rgba(148, 163, 184, 0.28);
-}
-
-.user-table th,
-.user-table td {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 0.55rem 0.75rem;
-  text-align: left;
-  font-size: 0.8rem;
-}
-
-.user-table th {
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 60%);
-  color: #024a5f;
-  font-weight: 600;
-}
-
-.user-table tr:last-child td {
-  border-bottom: none;
-}
-
-.access-info ul {
-  padding-left: 1.1rem;
-  margin: 0.4rem 0 0;
-}
-
-.access-info li {
-  margin-bottom: 0.35rem;
-  font-size: 0.84rem;
-}
-
-/* ---------- Responsive ---------- */
-
-/* Bulletproof fix to prevent side-scrolling on mobile */
-body, html {
-  overflow-x: hidden; 
-}
-
-@media (max-width: 768px) {
-  .app-main {
-    padding: 1.2rem;
-  }
-
-  .user-mgmt-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .app-header,
-  .app-nav {
-    padding-inline: 1.1rem;
-  }
-
-  /* Allow header to wrap so it doesn't push off-screen */
-  .app-header {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.8rem;
-  }
-
-  .app-nav {
-    gap: 1.2rem; 
-    flex-wrap: wrap; 
-  }
-  
-  .app-header-right {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%; /* Drops name/logout neatly below the logo on tiny screens */
-  }
-
-  .app-header-right span {
-    max-width: 140px; 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-  }
-}
-
-
-@media (max-width: 480px) {
-  .app-header h1 {
-    font-size: 0.95rem;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .signup-card {
-    padding-inline: 1.25rem;
-  }
-}
+  gap: 1.
