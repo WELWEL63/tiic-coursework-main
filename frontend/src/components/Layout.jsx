@@ -62,13 +62,10 @@ function Layout() {
       </header>
 
       <nav className="app-nav">
-        <nav className="app-nav">
-  <NavLink to="/ar">AR Maintenance</NavLink>
-  <NavLink to="/tools">Tool Check</NavLink>
-  <NavLink to="/dashboard">Dashboard</NavLink>
-  <NavLink to="/users">Users</NavLink>
-</nav>
-
+        <NavLink to="/ar">AR Maintenance</NavLink>
+        <NavLink to="/tools">Tool Check</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/users">Users</NavLink>
       </nav>
 
       <main className="app-main">

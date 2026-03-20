@@ -111,8 +111,7 @@ body {
 .app-main {
   flex: 1;
   display: flex;
-  align-items: center;        /* vertical center */
-  justify-content: center;    /* horizontal center */
+  flex-direction: column;
   padding: 1.5rem;
   background:
     radial-gradient(circle at top left, rgba(190, 242, 237, 0.6), transparent 55%),
@@ -121,13 +120,12 @@ body {
 
 .page {
   width: 100%;
-  max-width: 1100px;
+  max-width: 100% 
 }
 
-/* For “content pages” like dashboard, tools, users, keep inner content centered but wide */
 .page-inner {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 100%;
 }
 
 .page h2 {
@@ -419,13 +417,17 @@ button:disabled {
 
 .ar-scanner,
 .tool-scanner {
-  margin-bottom: 1rem;
+  max-width: 480px;
+  margin: 0 auto 1.5rem auto; /* Centers the whole block under the paragraph */
+  text-align: center;
 }
 
-.tool-checklist {
-  list-style: none;
-  padding: 0;
-  margin: 0.3rem 0 0;
+.ar-scanner-header {
+  display: flex;
+  justify-content: center; /* Centers the heading text */
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .tool-checklist li {
@@ -496,6 +498,11 @@ button:disabled {
 
 /* ---------- Responsive ---------- */
 
+/* Bulletproof fix to prevent side-scrolling on mobile */
+body, html {
+  overflow-x: hidden; 
+}
+
 @media (max-width: 768px) {
   .app-main {
     padding: 1.2rem;
@@ -509,7 +516,36 @@ button:disabled {
   .app-nav {
     padding-inline: 1.1rem;
   }
+
+  /* Allow header to wrap so it doesn't push off-screen */
+  .app-header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .app-nav {
+    gap: 1.2rem; 
+    flex-wrap: wrap; 
+  }
+  
+  .app-header-right {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%; /* Drops name/logout neatly below the logo on tiny screens */
+  }
+
+  .app-header-right span {
+    max-width: 140px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+  }
 }
+
 
 @media (max-width: 480px) {
   .app-header h1 {
